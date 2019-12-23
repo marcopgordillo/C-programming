@@ -1,4 +1,9 @@
 CC=gcc
 CFLAGS=-I.
-hellomake: src/hellomake.c src/hellofunc.c
-	$(CC) -o build/hellomake src/hellomake.c src/hellofunc.c
+DEPS=hellomake.h
+
+%.o: %.c ${DEPS}
+	${CC} -c -o $@ $< ${CFLAGS}
+
+hellomake: src/hellomake.o src/hellofunc.o
+	$(CC) -o build/hellomake src/hellomake.o src/hellofunc.o
