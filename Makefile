@@ -1,2 +1,4 @@
+CC=gcc
+CFLAGS=-I.
 hellomake: src/hellomake.c src/hellofunc.c
-	gcc -o build/hellomake src/hellomake.c src/hellofunc.c -I.
+	$(CC) -o build/hellomake src/hellomake.c src/hellofunc.c

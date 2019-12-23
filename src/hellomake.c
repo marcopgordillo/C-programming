@@ -1,4 +1,4 @@
-#include <src/hellomake.h>
+#include "hellomake.h"
 
 int main( void )
 {
