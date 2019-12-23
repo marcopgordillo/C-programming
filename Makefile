@@ -1,10 +1,24 @@
+IDIR=./src/include
 CC=gcc
-CFLAGS=-I.
-DEPS=hellomake.h
-OBJ=src/hellomake.o src/hellofunc.o
+CFLAGS=-I${IDIR}
 
-%.o: %.c ${DEPS}
-	${CC} -c -o $@ $< ${CFLAGS}
+ODIR=./src/obj
+LDIR=./lib
+LIBS=-lm
 
-hellomake: ${OBJ}
-	$(CC) -o build/$@ $^ ${CFLAGS}
+_DEPS=hellomake.h
+DEPS=$(patsubst %,$(IDIR)/%,$(_DEPS))
+
+_OBJ=hellomake.o hellofunc.o
+OBJ=$(patsubst %,$(ODIR)/%,$(_OBJ))
+
+$(ODIR)/%.o: ./src/%.c $(DEPS)
+	$(CC) -c -o $@ $< $(CFLAGS)
+
+hellomake: $(OBJ)
+	$(CC) -o ./build/$@ $^ $(CFLAGS) $(LIBS)
+
+.PHONY: clean
+
+clean:
+	rm -f $(ODIR)/*.o *~ core $(INCDIR/*~)
