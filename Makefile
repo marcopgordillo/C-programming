@@ -1,2 +1,24 @@
-hellomake: src/hello.c
-	gcc -o build/hello src/hello.c
+IDIR=./src/include
+CC=gcc
+CFLAGS=-I${IDIR}
+
+ODIR=./src/obj
+LDIR=./lib
+LIBS=-lm
+
+_DEPS=hellomake.h
+DEPS=$(patsubst %,$(IDIR)/%,$(_DEPS))
+
+_OBJ=hellomake.o hellofunc.o
+OBJ=$(patsubst %,$(ODIR)/%,$(_OBJ))
+
+$(ODIR)/%.o: ./src/%.c $(DEPS)
+	$(CC) -c -o $@ $< $(CFLAGS)
+
+hellomake: $(OBJ)
+	$(CC) -o ./build/$@ $^ $(CFLAGS) $(LIBS)
+
+.PHONY: clean
+
+clean:
+	rm -f $(ODIR)/*.o *~ core $(INCDIR/*~)
