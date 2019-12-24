@@ -1,6 +1,6 @@
 IDIR=./src/include
 CC=g++
-CFLAGS=-I${IDIR}
+CFLAGS=-I${IDIR} -Wall -g
 
 ODIR=./src/obj
 LDIR=./lib
